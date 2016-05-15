@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<ui:composition template="/WEB-INF/templates/layout.xhtml"/>
+	<ui:define name="corpo"/>
+<h:head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</h:head>
+<h:body>
+
+	<h3>Cadastro de Cliente</h3>
+
+		<h:form id="form">
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton value="Novo" icon="ui-icon-circle-plus"
+						onclick="PF('clienteDialog').show()"/>					
+						<span class="ui-saparator">							
+						</span>
+					<p:commandButton icon="ui-icon-pencil" title="Editar"/>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"/>
+					<p:commandButton icon="ui-icon-arrowthickstop-1-s" title="Exportar Excell"/>
+				</f:facet>
+			</p:toolbar>
+			<p:dataTable value="#{gestaoClienteBean.allClientes}" var="cliente"
+				emptyMessage="Nenhum Cliente Cadastrado." rows="5"
+				paginator="true" paginatorPosition="bottom" style="margin-top:15px">
+
+				<p:column headerText="Nome Cliente" width="60"
+					sortBy="">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+
+				<p:column headerText="Data Nascimento" width="60">
+					<h:outputFormat value="#{cliente.nascimento}" />
+				</p:column>
+
+				<p:column headerText="Endereço" width="120">
+					<h:outputText value="#{cliente.endereco}" />
+				</p:column>
+
+				<p:column headerText="Cep" width="40">
+					<h:outputText value="#{cliente.cep}" />
+				</p:column>
+
+				<p:column headerText="Documento Rg" width="60">
+					<h:outputText value="#{cliente.clienteRg}" />
+				</p:column>
+
+				<p:column headerText="Cpf" width="60">
+					<h:outputText value="#{cliente.clienteCpf}" />
+				</p:column>
+
+				<p:column headerText="Telefone" width="40">
+					<h:outputText value="#{cliente.foneCel}" />
+				</p:column>
+
+			</p:dataTable>
+			
+			<p:dialog header="Novo Cliente" resizable="false" modal="true"
+						widgetVar="clienteDialog" id="cliente-dialog" closeOnEscape="true">
+				<p:panelGrid columns="2" id="painel-dialog">
+					<p:outputLabel value="Nome" for="nomeCli"/>
+					<p:inputText id="nomeCli" size="40" maxlength="40"/>
+					
+					<p:outputLabel value="Nascimento" for="nascCli"/>
+					<p:inputMask id="nascCli" size="20" maxlength="10" mask="99/99/9999"/>
+					
+					<p:outputLabel value="Endereço" for="endeCli"/>
+					<p:inputText id="endeCli" size="60" maxlength="60"/>
+					
+					<p:outputLabel value="Cep" for="cepCli"/>
+					<p:inputMask id="cepCli" size="20" maxlength="20" mask="99999-999"/>
+					
+					<p:outputLabel value="Documento Rg" for="rgCli"/>
+					<p:inputText id="rgCli" size="20" maxlength="20"/>
+					
+					<p:outputLabel value="Documento Cpf" for="cpfCli"/>
+					<p:inputMask id="cpfCli" size="20" maxlength="20" mask="999.999.999-99"/>
+					
+					<p:outputLabel value="Telefone" for="foneCli"/>
+					<p:inputMask id="foneCli" size="20" maxlength="20" mask="(99)9999-9999"/>
+				</p:panelGrid>
+				<p:commandButton value="Salvar"/>
+				<p:commandButton value="Voltar" actionListener="PF('clienteDialog').close()"/>
+			</p:dialog>
+			
+		</h:form>
+
+</h:body>
+</html>
